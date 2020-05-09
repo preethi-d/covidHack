@@ -18,9 +18,7 @@ export const Create = () => (
           <Form.Control type="Description" placeholder="Description" />
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Zen" />
-          <Form.Check type="checkbox" label="Focused" />
-        </Form.Group>
+         </Form.Group>
         <Button variant="primary" type="submit">
           Design Flow!
         </Button>
