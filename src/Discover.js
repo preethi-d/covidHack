@@ -6,10 +6,9 @@ import Button from "react-bootstrap/Button";
 
 export const Discover = (props) => (
     <>
-      <br />
       <Form>
         <Form.Group controlId="formBasicEmail">
-          <Form.Control type="Search" placeholder="Search" />
+          <Form.Control type="Search" placeholder="Search for a flow" />
         </Form.Group>
       </Form>
       <p>Trending flows you may like:</p>

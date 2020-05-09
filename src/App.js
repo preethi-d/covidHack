@@ -15,10 +15,12 @@ function App() {
         <Router>
           <NavigationBar />
           <Switch>
-            <Route exact path="/active" component={Active} />
-            <Route path="/completed" component={Completed} />
-            <Route path="/create" component={Create} />
-            <Route path="/discover" component={Discover} />
+            <div id={"content"}>
+              <Route exact path="/active" component={Active} />
+              <Route path="/completed" component={Completed} />
+              <Route path="/create" component={Create} />
+              <Route path="/discover" component={Discover} />
+            </div>
           </Switch>
         </Router>
       </React.Fragment>
