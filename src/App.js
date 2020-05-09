@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Sidebar from './Sidebar'
+import Flow from './Flow'
 
 const items = [
   { name: 'myflows',
@@ -13,12 +14,49 @@ const items = [
   },
   { name: 'discover', label: 'Discover' },
   { name: 'create', label: 'Create' },
-]
+];
+
+const nodes = [
+  {
+    title: "Root 1",
+    desc: "Root node",
+    name: "root1",
+    type: "root",
+    position: {
+      x: 0,
+      y: 0
+    },
+    links: []
+  },
+  {
+    title: "Root 2",
+    desc: "Root node",
+    name: "root2",
+    type: "root",
+    position: {
+      x: 100,
+      y: 0
+    },
+    links: []
+  },
+  {
+    title: "Int 1",
+    desc: "Intermediate",
+    name: "int1",
+    type: "node",
+    position: {
+      x: 0,
+      y: 100
+    },
+    links: ["root1"]
+  }
+];
 
 function App() {
   return (
-      <div>
+      <div id="main">
         <Sidebar items={items} />
+        <Flow title="Test Flow" nodes={nodes}/>
       </div>
   )
 }

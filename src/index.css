@@ -15,4 +15,27 @@ code {
 .sidebar {
   max-width: 240px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  /*display: inline-flex;*/
+}
+
+.flow-box {
+  border: 1px solid black;
+  position: relative;
+  height: 800px;
+}
+
+.node {
+  display: inline-block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 1px solid blue;
+  /*background-color: blue;*/
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+}
+
+#main {
+  display: flex;
 }
