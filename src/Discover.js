@@ -1,11 +1,18 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
+import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
 
 export const Discover = (props) => (
     <>
       <br />
-      <p>Here are some flows you might like.</p>
+      <Form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Control type="Search" placeholder="Search" />
+        </Form.Group>
+      </Form>
+      <p>Trending flows you may like:</p>
       <CardDeck>
       <Card style={{ width: '18rem' }}>
         <Card.Body>
