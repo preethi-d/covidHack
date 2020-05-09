@@ -6,4 +6,4 @@ Clone code, run 'npm install' to install all dependencies used.
 
 ## UI:
 
-![Image description](link-to-image)
+![Image description](/Ui.png)
