@@ -3,38 +3,59 @@ import Flow from "./Flow";
 
 const nodes = [
     {
-        title: "Root 1",
-        desc: "Root node",
-        name: "root1",
+        title: "Hanging",
+        desc: "Passive Hangs (15s)\nActive Hangs alternating (10s)",
+        name: "hanging",
         type: "root",
         position: {
-            x: 200,
+            x: 400,
             y: 50
         },
-        links: []
+        links: ['resistance', 'reverse']
     },
     {
-        title: "Root 2",
-        desc: "Root node",
-        name: "root2",
-        type: "root",
-        position: {
-            x: 300,
-            y: 50
-        },
-        links: []
-    },
-    {
-        title: "Int 1",
-        desc: "Intermediate",
-        name: "int1",
+        title: "Resistance",
+        desc: "3 sets of 3 aided pull ups",
+        name: "resistance",
         type: "node",
         position: {
-            x: 200,
+            x: 300,
             y: 150
         },
-        links: ["root1"]
-    }
+        links: ['resistance2']
+    },
+    {
+        title: "Resistance II",
+        desc: "5 sets of 3 aided pull ups",
+        name: "resistance2",
+        type: "node",
+        position: {
+            x: 300,
+            y: 250
+        },
+        links: ['freepullup']
+    },
+    {
+        title: "Reverse",
+        desc: "3 sets of 5 reverse pull ups",
+        name: "reverse",
+        type: "node",
+        position: {
+            x: 500,
+            y: 150
+        },
+        links: ['freepullup']
+    },
+    {
+        title: "Free Pull Ups",
+        desc: "3 sets of 5 free (unaided) pull ups",
+        name: "freepullup",
+        type: "goal",
+        position: {
+            x: 400,
+            y: 350
+        }
+    },
 ];
 
 export const Active = (props) => (
