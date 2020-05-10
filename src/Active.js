@@ -60,6 +60,6 @@ const nodes = [
 
 export const Active = (props) => (
     <>
-    <Flow nodes={nodes} title={"Pull Up"}/>
+    <Flow nodes={nodes} title={"Pull Up"} width={800}/>
     </>
 );
