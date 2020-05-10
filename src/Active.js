@@ -61,6 +61,5 @@ const nodes = [
 export const Active = (props) => (
     <>
     <Flow nodes={nodes} title={"Pull Up"}/>
-    <img src={"circle.png"} style={{display: "none"}} id={"circle"}/>
     </>
 );

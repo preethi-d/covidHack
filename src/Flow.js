@@ -2,10 +2,12 @@ import React from 'react'
 import {fabric} from 'fabric'
 
 class Flow extends React.Component {
-  constructor({title, nodes}) {
+  constructor({title, nodes, width, height}) {
     super();
     this.title = title;
     this.nodes = nodes;
+    this.width = width || 600;
+    this.height = height || 800;
     this.nodesMap = {};
     this.edges = [];
     this.nodes.forEach(node => {
@@ -25,6 +27,8 @@ class Flow extends React.Component {
   componentDidMount() {
     const canvas = new fabric.Canvas('flow-canvas');
     canvas.hoverCursor = 'pointer';
+    console.log(this.width, this.height);
+    canvas.setDimensions({width: this.width, height: this.height});
     // canvas.selection = false;
 
     canvas.on('mouse:over', ({e, target}) => {
@@ -159,10 +163,10 @@ class Flow extends React.Component {
 
   render() {
     return (
-      <div className="flow">
+      <div className="flow" style={{minWidth: this.width}}>
         <h2 className="title">{this.title}</h2>
         <div className="flow-box">
-          <canvas id={"flow-canvas"} width={window.innerWidth} height={window.innerHeight}/>
+          <canvas id={"flow-canvas"} width={this.width} height={this.height}/>
         </div>
       </div>
     )
