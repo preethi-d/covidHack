@@ -29,77 +29,86 @@ class Flow extends React.Component {
 
     canvas.on('mouse:over', ({e, target}) => {
       if (target && target.tooltip) {
-        console.log('over', target);
-        // target.tooltip.visible = true;
         target.tooltip.set('visible', true);
-        // target.tooltip.set('dirty', true);
-        // target.set('fill', 'red');
+        canvas.bringToFront(target.tooltip);
         canvas.renderAll();
-        // target.tooltip.render();
       }
     });
 
     canvas.on('mouse:out', ({e, target}) => {
-      if (target && target.tooltip) {
-        console.log('out');
-        // target.tooltip.visible = false;
+      if (target && target.tooltip && this.activeTooltip !== target) {
         target.tooltip.set('visible', false);
-        // target.tooltip.set('dirty', true);
         canvas.renderAll();
-        // target.tooltip.render();
       }
 
     });
 
     canvas.on('mouse:down', ({e, target}) => {
-      console.log(target);
       if (target && target.tooltip) {
-        console.log('down');
-        // target.tooltip.set('visible', true);
-        // target.tooltip.set('dirty', true);
-        // target.tooltip.visible = true;
+        console.log(target);
+        if (target._objects.length > 2) {
+          target._objects[2].set('visible', !target._objects[2].visible);
+          canvas.renderAll();
+        }
       }
+      // if (this.activeTooltip) {
+      //   this.activeTooltip.tooltip.set('visible', false);
+      // }
+      // if (target && target.tooltip) {
+      //   this.activeTooltip = target;
+      //   target.tooltip.set('visible', true);
+      // }
+      // canvas.renderAll();
 
     });
-    //
-    // canvas.on('mouse:move', ({e, target}) => {
-    //
-    // });
 
     const tooltips = [];
-    const circles = [];
+    const circlePropsArray = [];
 
     this.nodes.forEach(node => {
-      const radius = node.size || 25;
+      const radius = node.size || 40;
 
-      const circle = new fabric.Circle({
+      const circleProps = {
         top: node.position.y - radius,
         left: node.position.x - radius,
+        scale: 2 * radius/200,
         radius,
+        // width: radius,
+        // height: radius,
         selectable: false,
-        fill: 'dodgerblue',
+        fill: 'white',
         name: node.name,
         node: node,
-      });
+        star: node.type === 'goal',
+      };
+
+      const tooltipHeight = 200;
+      const tooltipWidth = 200;
+      const tooltipPadding = 10;
+      const titleFontSize = 24;
+      const descFontSize = 18;
 
       const tooltipTitle = new fabric.Textbox(node.title, {
-        width: 200,
-        height: 100,
+        left: tooltipPadding,
+        top: 5,
+        width: tooltipWidth - 2 * tooltipPadding,
+        height: tooltipHeight - tooltipPadding,
         selectable: false,
-        fontSize: 24,
+        fontSize: titleFontSize,
       });
       const tooltipDesc = new fabric.Textbox(node.desc, {
-        top: 24,
-        width: 200,
-        height: 76,
+        left: 10,
+        top: 34,
+        width: tooltipWidth - 2 * tooltipPadding,
+        height: tooltipHeight - titleFontSize - tooltipPadding,
         selectable: false,
-        fontSize: 18,
+        fontSize: descFontSize,
       });
       const tooltipRect = new fabric.Rect({
-        width: 200,
-        height: 100,
+        width: tooltipWidth,
+        height: tooltipHeight,
         stroke: 'black',
-        fill: 'rgba(30, 30, 30, 0.7)',
+        fill: 'rgba(255, 255, 255, 0.9)',
         selectable: false,
       });
 
@@ -107,12 +116,13 @@ class Flow extends React.Component {
         top: node.position.y - radius,
         left: node.position.x + radius,
         visible: false,
+        selectable: false,
       });
 
-      circle.tooltip = tooltip;
+      circleProps.tooltip = tooltip;
       node.tooltip = tooltip;
       // canvas.add(circle);
-      circles.push(circle);
+      circlePropsArray.push(circleProps);
       // tooltips.push(tooltipRect);
       // tooltips.push(tooltipText);
       tooltips.push(tooltip);
@@ -121,21 +131,36 @@ class Flow extends React.Component {
 
     this.edges.forEach(points => {
       const line = new fabric.Line(points, {
-        stroke: 'dodgerblue',
+        stroke: 'rgba(0, 0, 0, 0.6)',
         strokeWidth: 2,
         selectable: false,
       });
       canvas.add(line);
     });
-    tooltips.forEach(tooltip => canvas.add(tooltip));
-    circles.forEach(circle => canvas.add(circle));
 
+    circlePropsArray.forEach(props => {
+      fabric.Image.fromURL('circle.png', circleImg => {
+        fabric.Image.fromURL('tick.png', tickImg => {
+          const bgCircle = new fabric.Circle(props);
+          circleImg.scale(props.scale);
+          circleImg.set(props);
+          tickImg.scale(props.scale);
+          tickImg.set(props);
+          tickImg.set('visible', false);
+          const nodeGroup = new fabric.Group([bgCircle, circleImg, tickImg], props);
+          canvas.add(nodeGroup);
+        });
+
+      })
+    });
+
+    tooltips.forEach(tooltip => canvas.add(tooltip));
   }
 
   render() {
     return (
       <div className="flow">
-        <div className="title">{this.title}</div>
+        <h2 className="title">{this.title}</h2>
         <div className="flow-box">
           <canvas id={"flow-canvas"} width={window.innerWidth} height={window.innerHeight}/>
         </div>
